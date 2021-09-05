@@ -5,7 +5,7 @@ import FlippingCardBack from "./CardBack";
 import "./style.css";
 
 export default function ({ movie }) {
-  const {
+  let {
     _id,
     title,
     rate,
@@ -16,8 +16,17 @@ export default function ({ movie }) {
     movieLength,
   } = movie;
 
-  const encodedImage = new Buffer(image.data, "binary").toString("base64");
-  const coverImage = "data:image/jpeg;base64," + encodedImage;
+  let encodedImage,coverImage;
+
+  try
+  {
+    encodedImage = new Buffer(image.data, "binary").toString("base64");
+    coverImage = "data:image/jpeg;base64," + encodedImage;
+  }
+  catch(E)
+  {}
+
+
 
   function flipCard(cardID) {
     const card = document.getElementById(`${cardID}`);

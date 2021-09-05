@@ -4,7 +4,7 @@ import { GET_MOVIES_SUCCESS, GET_MOVIES_ERROR } from "./actionTypes";
 export const getMovies = () => {
   return async (dispatch) => {
     try {
-      const result = await Axios.get("/api/movies");
+      const result = await Axios.get("http://localhost:5000/api/movies");
       dispatch({ type: GET_MOVIES_SUCCESS, payload: result.data.movies });
     } catch (error) {
       dispatch({ type: GET_MOVIES_ERROR, error });

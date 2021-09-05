@@ -28,8 +28,11 @@ db.on("error", console.error.bind(console, "connection error:"));
 app.use(express.static("./uploads"));
 
 // Body parser middleware
-app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
-app.use(bodyParser.json({ limit: "10mb" }));
+// app.use(bodyParser.urlencoded({ limit: "10mb", extended: true, parameterLimit: 50000 }));
+// app.use(bodyParser.json({ limit: "10mb" }));
+
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
 
 //App routes to handle requests
 app.use("/api/movies", movieRoute);

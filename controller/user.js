@@ -26,26 +26,26 @@ exports.signUp = (req, res) => {
               .save()
               .then(() => {
                 // create reusable transporter object using the default SMTP transport
-                let transporter = nodemailer.createTransport({
-                  service: "gmail",
-                  port: 587,
-                  secure: false, // true for 465, false for other ports
-                  auth: {
-                    user: process.env.SENDER_EMAIL, // generated ethereal user
-                    pass: process.env.EMAIL_PASSWORD, // generated ethereal password
-                  },
-                });
+                // let transporter = nodemailer.createTransport({
+                //   service: "gmail",
+                //   port: 587,
+                //   secure: false, // true for 465, false for other ports
+                //   auth: {
+                //     user: process.env.SENDER_EMAIL, // generated ethereal user
+                //     pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+                //   },
+                // });
 
-                transporter
-                  .sendMail({
-                    from: process.env.SENDER_EMAIL,
-                    to: `${email}`,
-                    subject: "Welcome to iCinema",
-                    text: `Hello Dear ${email}`,
-                    html: `<b>Hello Dear User, we are happy that you join our family. Kind Regards, iCinema Team.</b>`,
-                  })
-                  .then((info) => console.log("Email has been sent!"))
-                  .catch((err) => console.log(err));
+                // transporter
+                //   .sendMail({
+                //     from: process.env.SENDER_EMAIL,
+                //     to: `${email}`,
+                //     subject: "Welcome to iCinema",
+                //     text: `Hello Dear ${email}`,
+                //     html: `<b>Hello Dear User, we are happy that you join our family. Kind Regards, iCinema Team.</b>`,
+                //   })
+                //   .then((info) => console.log("Email has been sent!"))
+                //   .catch((err) => console.log(err));
                 res.status(201).json({
                   message: "The user has been signed up successfully!",
                   userData,
@@ -105,3 +105,10 @@ exports.deleteUser = (req, res, next) => {
     .catch((error) => res.status(200).json(error));
 };
 
+exports.getUser = (req, res, next) => {
+  User.find()
+    .then((docs) => {
+      return res.status(200).json(docs);
+    })
+    .catch((err) => res.status(500).json(err));
+}

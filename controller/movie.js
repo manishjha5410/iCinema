@@ -6,10 +6,12 @@ const fs = require("fs");
 exports.getAllMovies = (req, res) => {
   Movie.find()
     .then((movies) =>
+    {
       res.status(200).json({
         count: movies.length,
         movies: movies,
       })
+    }
     )
     .catch((err) => res.status(500).json({ error: err }));
 };
@@ -26,6 +28,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("image");
 
 exports.addMovie = (req, res) => {
+  console.log(req.file);
   upload(req, res, (err) => {
     if (err) res.status(500).json(err);
     else {
